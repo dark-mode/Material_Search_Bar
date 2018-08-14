@@ -223,7 +223,8 @@ class _MaterialSearchBarState extends State<MaterialSearchBar> {
                 onPressed: (),
           ],
         ),
-        body: Container(child: MaterialSearchResults(_items, _selectedItems, this))
+        body: Container(child: MaterialSearchBarResults(_items, _selectedItems, this, _searchResultsBackgroundColor, _searchResultsTextColor, _searchResultsFontSize, _checkmarkIcon
+        ))
       ),
     );
   }
