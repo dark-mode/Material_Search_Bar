@@ -10,7 +10,7 @@ class MaterialSearchBar extends StatefulWidget {
   Color _searchBarTextColor, _searchBarColor, _searchResultsBackgroundColor, _searchResultsTextColor;
   String _searchBarFont, _searchResultsFont;
   double _searchBarFontSize, _searchResultsFontSize;
-  Icon _searchIcon;
+  Icon _searchIcon, _checkmarkIcon;
   FloatingActionButton _submitButton, _clearButton;
 
   static const MethodChannel _channel =
@@ -43,13 +43,13 @@ class MaterialSearchBar extends StatefulWidget {
               this._searchBarTextColor,
               this._searchBarFontSize,
               this._searchBarFont,
-              this._searchIcon,
               this._searchResultsBackgroundColor,
               this._searchResultsTextColor,
               this._searchResultsFontSize,
               this._searchResultsFont,
               this._submitButton,
               this._clearButton,
+              this._checkmarkIcon
             );
   }
 
@@ -61,7 +61,7 @@ class _MaterialSearchBarState extends State<MaterialSearchBar> {
   Color _searchBarTextColor, _searchBarColor, _searchResultsBackgroundColor, _searchResultsTextColor;
   double _searchBarFontSize, _searchResultsFontSize;
   String _searchBarFont, _searchResultsFont;
-  Icon _searchIcon;
+  Icon _checkmarkIcon;
   FloatingActionButton _submitButton, _clearButton;
 
   FocusNode _myFocusNode;
@@ -86,13 +86,13 @@ class _MaterialSearchBarState extends State<MaterialSearchBar> {
       this._searchBarTextColor,
       this._searchBarFontSize,
       this._searchBarFont,
-      this._searchIcon,
       this._searchResultsBackgroundColor,
       this._searchResultsTextColor,
       this._searchResultsFontSize,
       this._searchResultsFont,
       this._submitButton,
       this._clearButton,
+      this._checkmarkIcon
       ) {
     _controller = new TextEditingController();
     _myFocusNode = FocusNode();
@@ -117,20 +117,18 @@ class _MaterialSearchBarState extends State<MaterialSearchBar> {
     Icon _rightIcon;
 
     if (_items.length < 396) { //! oiriginal length!!!
-      _rightIcon = new Icon(Icons.clear);
+      _rightIcon = Icon(Icons.clear);
       print("change " + _items.length.toString());
     } else {
-      _rightIcon = new Icon(Icons.search);
+      _rightIcon = Icon(Icons.search);
     }
 
     return MaterialApp(
       title: "Hungry",
       home: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
+        //backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
-            backgroundColor: Theme
-                .of(context)
-                .primaryColor,
+            backgroundColor: _searchBarColor,
             title: Row(
               children: <Widget>[
               IconButton(
@@ -152,15 +150,15 @@ class _MaterialSearchBarState extends State<MaterialSearchBar> {
                     border: InputBorder.none,
                     hintText: 'Search on Hungry',
                     hintStyle: TextStyle(
-                        color: Colors.white,
+                        color: _searchBarTextColor,
                         fontSize: 60.0 * scaleFactor,
                         fontFamily: 'Eczar'
                     ),
                   ),
-                  onSubmitted: (text) {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultsPage.items(_lat, _lon, _selectedItems, _user)),
-                    );
-                  },
+//                  onSubmitted: (text) {
+//                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultsPage.items(_lat, _lon, _selectedItems, _user)),
+//                    );
+//                  },
                   onChanged: (text) {
                     setState(() {
                       _items = _trie.getAllWordsWithPrefix(text);
@@ -199,28 +197,9 @@ class _MaterialSearchBarState extends State<MaterialSearchBar> {
           children: <Widget>[
             Container(
               padding: EdgeInsets.only(bottom: 20.0 * scaleFactor, right: 22.0 * scaleFactor),
-              child: FloatingActionButton(
-                tooltip: "Clear All",
-                backgroundColor: Colors.red,
-                mini: true,
-                heroTag: null,
-                child: Icon(Icons.clear,color: Colors.white,),
-                onPressed: (){
-                  setState(() {
-                    _controller.clear();
-                    _items = _trie.getAllWords();
-                    _selectedItems = Set<String>();
-                  });
-                },
-              ),
+              child: _clearButton
             ),
-            FloatingActionButton(
-                heroTag: null,
-                tooltip: "Search",
-                child: new Icon(Icons.arrow_forward),
-                backgroundColor: Theme.of(context).primaryColor,
-                foregroundColor: Colors.white,
-                onPressed: (),
+            _submitButton
           ],
         ),
         body: Container(child: MaterialSearchBarResults(_items, _selectedItems, this, _searchResultsBackgroundColor, _searchResultsTextColor, _searchResultsFontSize, _checkmarkIcon
