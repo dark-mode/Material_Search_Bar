@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e531b046-10a8-4b3c-b8d1-658ad22ab6ea" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/MaterialSearchBar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/MaterialSearchBar.dart" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,11 +23,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="search_bar.dart" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/search_bar.dart">
+      <file leaf-file-name="MaterialSearchBar.dart" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/MaterialSearchBar.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-9614">
-              <caret line="113" column="18" lean-forward="true" selection-start-line="113" selection-start-column="18" selection-end-line="113" selection-end-column="18" />
+            <state relative-caret-position="391">
+              <caret line="29" column="29" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -36,10 +35,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MaterialSearchResultsItem.dart" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/MaterialSearchResultsItem.dart">
+      <file leaf-file-name="MaterialSearchBarResultsItem.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/MaterialSearchBarResultsItem.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-345" />
+            <state relative-caret-position="138">
+              <caret line="6" column="15" selection-start-line="6" selection-start-column="15" selection-end-line="6" selection-end-column="15" />
+            </state>
           </provider>
         </entry>
       </file>
@@ -54,6 +55,18 @@
       </file>
     </leaf>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>cuisine</find>
+      <find>Cuisine</find>
+      <find>cuisines</find>
+      <find>icon</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>item</replace>
+      <replace>Item</replace>
+    </replaceStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -63,6 +76,7 @@
         <option value="$PROJECT_DIR$/lib/MaterialSearch.dart" />
         <option value="$PROJECT_DIR$/pubspec.yaml" />
         <option value="$PROJECT_DIR$/lib/search_bar.dart" />
+        <option value="$PROJECT_DIR$/lib/MaterialSearchBar.dart" />
       </list>
     </option>
   </component>
@@ -208,9 +222,10 @@
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.19577464" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.09859155" />
       <window_info id="Captures" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16927083" />
+      <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" id="Flutter Inspector" order="3" />
@@ -220,7 +235,6 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
     <layout-to-restore>
       <window_info id="Designer" order="0" />
@@ -276,7 +290,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/search_bar.dart">
+    <entry file="file://$PROJECT_DIR$/lib/MaterialSearchBar.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="9637">
           <caret line="419" column="28" lean-forward="true" selection-start-line="419" selection-start-column="28" selection-end-line="419" selection-end-column="28" />
@@ -300,7 +314,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/search_bar.dart">
+    <entry file="file://$PROJECT_DIR$/lib/MaterialSearchBar.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="12995">
           <caret line="565" column="31" lean-forward="true" selection-start-line="565" selection-start-column="31" selection-end-line="565" selection-end-column="31" />
@@ -324,19 +338,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/search_bar.dart">
+    <entry file="file://$PROJECT_DIR$/lib/MaterialSearchBarResultsItem.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-9614">
-          <caret line="113" column="18" lean-forward="true" selection-start-line="113" selection-start-column="18" selection-end-line="113" selection-end-column="18" />
+        <state relative-caret-position="138">
+          <caret line="6" column="15" selection-start-line="6" selection-start-column="15" selection-end-line="6" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/MaterialSearchBar.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="29" column="29" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/MaterialSearchResultsItem.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-345" />
       </provider>
     </entry>
   </component>
