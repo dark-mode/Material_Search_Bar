@@ -5,14 +5,17 @@ class MaterialSearchResultsItem extends Column {
   Set<String> _selectedItems;
   Icon _checkmark;
   State _state;
+  Color _searchResultsBackgroundColor;
+  Color _searchResultsTextColor;
+  double _searchResultsFontSize;
   MaterialSearchResultsItem(
-      String item, double scaleFactor, BuildContext context, this._selectedItems, this._checkmark, this._state) :
+      String item, double scaleFactor, BuildContext context, this._selectedItems, this._checkmark, this._state, this._searchResultsBackgroundColor, this._searchResultsTextColor, this._searchResultsFontSize) :
               super(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.transparent
+                      color: _searchResultsBackgroundColor
                     ),
                     child: ListTile(
                         trailing: _checkmark,
@@ -33,8 +36,8 @@ class MaterialSearchResultsItem extends Column {
                     title: new Text(item,
                         textAlign: TextAlign.left,
                         style: new TextStyle(
-                          color: Colors.white,
-                          fontSize: 45.0 * scaleFactor,
+                          color: _searchResultsTextColor,
+                          fontSize: _searchResultsFontSize,
                         )),
                     )
                   ),
