@@ -3,8 +3,16 @@ import 'MaterialSearchBarResults.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:trie/trie.dart';
+typedef void OnTap(String value);
 
 class MaterialSearchBar extends StatefulWidget {
+
+  Color _searchBarTextColor, _searchBarColor, _searchResultsBackgroundColor, _searchResultsTextColor;
+  String _searchBarFont, _searchResultsFont;
+  double _searchBarFontSize, _searchResultsFontSize;
+  Icon _searchIcon;
+  FloatingActionButton _submitButton, _clearButton;
+
   static const MethodChannel _channel =
   const MethodChannel('search_bar');
 
@@ -17,14 +25,44 @@ class MaterialSearchBar extends StatefulWidget {
   @override
   _MaterialSearchBarState createState() => hP;
 
-  MaterialSearchBar() {
-    hP = new _MaterialSearchBarState();
+  MaterialSearchBar(
+      this._searchBarColor,
+      this._searchBarTextColor,
+      this._searchBarFontSize,
+      this._searchBarFont,
+      this._searchIcon,
+      this._searchResultsBackgroundColor,
+      this._searchResultsTextColor,
+      this._searchResultsFontSize,
+      this._searchResultsFont,
+      this._submitButton,
+      this._clearButton,
+      ) {
+    hP = _MaterialSearchBarState(
+              this._searchBarColor,
+              this._searchBarTextColor,
+              this._searchBarFontSize,
+              this._searchBarFont,
+              this._searchIcon,
+              this._searchResultsBackgroundColor,
+              this._searchResultsTextColor,
+              this._searchResultsFontSize,
+              this._searchResultsFont
+              this._submitButton,
+              this._clearButton,
+            );
   }
 
 }
 
 class _MaterialSearchBarState extends State<MaterialSearchBar> {
   noSuchMethod(Invocation i) => super.noSuchMethod(i);
+
+  Color _searchBarTextColor, _searchBarColor, _searchResultsBackgroundColor, _searchResultsTextColor;
+  double _searchBarFontSize, _searchResultsFontSize;
+  String _searchBarFont, _searchResultsFont;
+  Icon _searchIcon;
+  FloatingActionButton _submitButton, _clearButton;
 
   FocusNode _myFocusNode;
 
@@ -43,7 +81,19 @@ class _MaterialSearchBarState extends State<MaterialSearchBar> {
   Trie _trie;
   Icon _rightIcon;
   TextEditingController _controller;
-  _SearchBarState() {
+  _MaterialSearchBarState(
+      this._searchBarColor,
+      this._searchBarTextColor,
+      this._searchBarFontSize,
+      this._searchBarFont,
+      this._searchIcon,
+      this._searchResultsBackgroundColor,
+      this._searchResultsTextColor,
+      this._searchResultsFontSize,
+      this._searchResultsFont,
+      this._submitButton,
+      this._clearButton,
+      ) {
     _controller = new TextEditingController();
     _myFocusNode = FocusNode();
     _selectedItems = Set();
@@ -51,8 +101,6 @@ class _MaterialSearchBarState extends State<MaterialSearchBar> {
 
     _trie = Trie.list(_items);
   }
-
-
 
   @override
   void initState() {
@@ -85,16 +133,6 @@ class _MaterialSearchBarState extends State<MaterialSearchBar> {
                 .primaryColor,
             title: Row(
               children: <Widget>[
-//                Container(
-//                  padding: EdgeInsets.only(right: 5.0),
-//                  child: new Chip(
-//                    avatar: new CircleAvatar(
-//                      backgroundColor: Colors.grey.shade800,
-//                      child: new Text('AB'),
-//                    ),
-//                    label: new Text('Aaron Burr'),
-//                  ),
-//                ),
               IconButton(
                 padding: EdgeInsets.only(right: 50.0 * scaleFactor),
                   icon: Icon(Icons.arrow_back),
