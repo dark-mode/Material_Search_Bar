@@ -3,15 +3,17 @@ import 'MaterialSearchBarResults.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:trie/trie.dart';
-typedef void OnTap(String value);
+typedef void OnSubmit(String value);
 
 class MaterialSearchBar extends StatefulWidget {
 
-  Color _searchBarTextColor, _searchBarColor, _searchResultsBackgroundColor, _searchResultsTextColor;
-  String _searchBarFont, _searchResultsFont;
-  double _searchBarFontSize, _searchResultsFontSize;
-  Icon _searchIcon, _checkmarkIcon;
-  FloatingActionButton _submitButton, _clearButton;
+  Color searchBarTextColor, searchBarColor, searchResultsBackgroundColor, searchResultsTextColor;
+  String searchBarFont, searchResultsFont;
+  double searchBarFontSize, searchResultsFontSize;
+  Icon checkmarkIcon;
+  FloatingActionButton submitButton, clearButton;
+  OnSubmit onSubmit;
+  List<String> items;
 
   static const MethodChannel _channel =
   const MethodChannel('search_bar');
@@ -25,31 +27,36 @@ class MaterialSearchBar extends StatefulWidget {
   @override
   _MaterialSearchBarState createState() => hP;
 
-  MaterialSearchBar(
-      this._searchBarColor,
-      this._searchBarTextColor,
-      this._searchBarFontSize,
-      this._searchBarFont,
-      this._searchIcon,
-      this._searchResultsBackgroundColor,
-      this._searchResultsTextColor,
-      this._searchResultsFontSize,
-      this._searchResultsFont,
-      this._submitButton,
-      this._clearButton,
-      ) {
+  MaterialSearchBar({
+    this.searchBarColor,
+    this.searchBarTextColor,
+    this.searchBarFontSize,
+    this.searchBarFont,
+    this.searchResultsBackgroundColor,
+    this.searchResultsTextColor,
+    this.searchResultsFontSize,
+    this.searchResultsFont,
+    this.submitButton,
+    this.clearButton,
+    this.checkmarkIcon,
+    this.items,
+    this.onSubmit
+  })
+  {
     hP = _MaterialSearchBarState(
-              this._searchBarColor,
-              this._searchBarTextColor,
-              this._searchBarFontSize,
-              this._searchBarFont,
-              this._searchResultsBackgroundColor,
-              this._searchResultsTextColor,
-              this._searchResultsFontSize,
-              this._searchResultsFont,
-              this._submitButton,
-              this._clearButton,
-              this._checkmarkIcon
+              this.searchBarColor,
+              this.searchBarTextColor,
+              this.searchBarFontSize,
+              this.searchBarFont,
+              this.searchResultsBackgroundColor,
+              this.searchResultsTextColor,
+              this.searchResultsFontSize,
+              this.searchResultsFont,
+              this.submitButton,
+              this.clearButton,
+              this.checkmarkIcon,
+              this.items,
+              this.onSubmit
             );
   }
 
@@ -58,11 +65,12 @@ class MaterialSearchBar extends StatefulWidget {
 class _MaterialSearchBarState extends State<MaterialSearchBar> {
   noSuchMethod(Invocation i) => super.noSuchMethod(i);
 
-  Color _searchBarTextColor, _searchBarColor, _searchResultsBackgroundColor, _searchResultsTextColor;
-  double _searchBarFontSize, _searchResultsFontSize;
-  String _searchBarFont, _searchResultsFont;
-  Icon _checkmarkIcon;
-  FloatingActionButton _submitButton, _clearButton;
+  Color searchBarTextColor, searchBarColor, searchResultsBackgroundColor, searchResultsTextColor;
+  double searchBarFontSize, searchResultsFontSize;
+  String searchBarFont, searchResultsFont;
+  Icon checkmarkIcon;
+  OnSubmit onSubmit;
+  FloatingActionButton submitButton, clearButton;
 
   FocusNode _myFocusNode;
 
@@ -77,29 +85,31 @@ class _MaterialSearchBarState extends State<MaterialSearchBar> {
   double _lat, _lon;
 
   Set<String> _selectedItems;
-  List<String> _items;
+  List<String> items;
   Trie _trie;
   Icon _rightIcon;
   TextEditingController _controller;
   _MaterialSearchBarState(
-      this._searchBarColor,
-      this._searchBarTextColor,
-      this._searchBarFontSize,
-      this._searchBarFont,
-      this._searchResultsBackgroundColor,
-      this._searchResultsTextColor,
-      this._searchResultsFontSize,
-      this._searchResultsFont,
-      this._submitButton,
-      this._clearButton,
-      this._checkmarkIcon
+      this.searchBarColor,
+      this.searchBarTextColor,
+      this.searchBarFontSize,
+      this.searchBarFont,
+      this.searchResultsBackgroundColor,
+      this.searchResultsTextColor,
+      this.searchResultsFontSize,
+      this.searchResultsFont,
+      this.submitButton,
+      this.clearButton,
+      this.checkmarkIcon,
+      this.items,
+      this.onSubmit
       ) {
     _controller = new TextEditingController();
     _myFocusNode = FocusNode();
     _selectedItems = Set();
     _rightIcon = new Icon(Icons.search);
 
-    _trie = Trie.list(_items);
+    _trie = Trie.list(items);
   }
 
   @override
@@ -111,14 +121,14 @@ class _MaterialSearchBarState extends State<MaterialSearchBar> {
   @override
   Widget build(BuildContext context) {
 
-    double scaleFactor =
-        MediaQuery.of(context).textScaleFactor / 2.5;
+//    double scaleFactor =
+//        MediaQuery.of(context).textScaleFactor / 2.5;
 
     Icon _rightIcon;
 
-    if (_items.length < 396) { //! oiriginal length!!!
+    if (items != null && items.length < 396) { //! oiriginal length!!!
       _rightIcon = Icon(Icons.clear);
-      print("change " + _items.length.toString());
+      print("change " + items.length.toString());
     } else {
       _rightIcon = Icon(Icons.search);
     }
@@ -128,11 +138,11 @@ class _MaterialSearchBarState extends State<MaterialSearchBar> {
       home: Scaffold(
         //backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
-            backgroundColor: _searchBarColor,
+            backgroundColor: searchBarColor,
             title: Row(
               children: <Widget>[
               IconButton(
-                padding: EdgeInsets.only(right: 50.0 * scaleFactor),
+                padding: EdgeInsets.only(right: 50.0),
                   icon: Icon(Icons.arrow_back),
                   onPressed: () => Navigator.pop(context),
               ),
@@ -142,26 +152,23 @@ class _MaterialSearchBarState extends State<MaterialSearchBar> {
                   autofocus: true,
                   focusNode: _myFocusNode,
                   style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 60.0 * scaleFactor,
-                      fontFamily: 'Eczar'
+                      color: searchBarTextColor,
+                      fontSize: searchBarFontSize,
+                      //fontFamily: 'Eczar'
                   ),
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Search on Hungry',
                     hintStyle: TextStyle(
-                        color: _searchBarTextColor,
-                        fontSize: 60.0 * scaleFactor,
-                        fontFamily: 'Eczar'
+                        color: searchBarTextColor,
+                        fontSize: searchBarFontSize,
+                        //fontFamily: 'Eczar'
                     ),
                   ),
-//                  onSubmitted: (text) {
-//                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultsPage.items(_lat, _lon, _selectedItems, _user)),
-//                    );
-//                  },
+                  onSubmitted: onSubmit,
                   onChanged: (text) {
                     setState(() {
-                      _items = _trie.getAllWordsWithPrefix(text);
+                      items = _trie.getAllWordsWithPrefix(text);
                     });
                   },
                 ),
@@ -185,7 +192,7 @@ class _MaterialSearchBarState extends State<MaterialSearchBar> {
           onPressed: () {
             setState(() {
               _controller.clear();
-              _items = _trie.getAllWords();
+              items = _trie.getAllWords();
             });
           }
       ),
@@ -196,13 +203,13 @@ class _MaterialSearchBarState extends State<MaterialSearchBar> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             Container(
-              padding: EdgeInsets.only(bottom: 20.0 * scaleFactor, right: 22.0 * scaleFactor),
-              child: _clearButton
+              padding: EdgeInsets.only(bottom: 20.0, right: 22.0),
+              child: clearButton
             ),
-            _submitButton
+            submitButton
           ],
         ),
-        body: Container(child: MaterialSearchBarResults(_items, _selectedItems, this, _searchResultsBackgroundColor, _searchResultsTextColor, _searchResultsFontSize, _checkmarkIcon
+        body: Container(child: MaterialSearchBarResults(items, _selectedItems, this, searchResultsBackgroundColor, searchResultsTextColor, searchResultsFontSize, checkmarkIcon
         ))
       ),
     );

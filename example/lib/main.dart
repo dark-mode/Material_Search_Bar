@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:search_bar/search_bar_old.dart';
+import 'package:search_bar/MaterialSearchBar.dart';
 
 void main() => runApp(new MyApp());
 
@@ -25,7 +25,7 @@ class _MyAppState extends State<MyApp> {
     String platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      platformVersion = await SearchBar.platformVersion;
+      platformVersion = await MaterialSearchBar.platformVersion;
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -42,15 +42,28 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      home: new Scaffold(
-        appBar: new AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: new Center(
-          child: new Text('Running on: $_platformVersion\n'),
-        ),
-      ),
+    return MaterialSearchBar(
+      searchBarColor: Colors.white,
+      searchBarTextColor: Colors.black,
+      searchBarFontSize: 20.0,
+      searchResultsBackgroundColor: Colors.white,
+      searchResultsTextColor: Colors.black,
+      searchResultsFontSize: 20.0,
+      checkmarkIcon: Icon(Icons.check, color: Colors.teal[400]),
+      submitButton: FloatingActionButton(),
+      clearButton: FloatingActionButton(),
+      items: ['chris is dumb', 'ankush is awesome'],
+      onSubmit: (String value) => print('hi'),
     );
+//    return new MaterialApp(
+//      home: new Scaffold(
+//        appBar: new AppBar(
+//          title: const Text('Plugin example app'),
+//        ),
+//        body: new Center(
+//          child: new Text('Running on: $_platformVersion\n'),
+//        ),
+//      ),
+//    );
   }
 }
