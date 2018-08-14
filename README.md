@@ -1,5 +1,7 @@
 # Search_Bar
-A materialistic and feature packed search bar with a Trie implementation for efficient autocorrect. Made by Christopher Gong and Ankush Vangari.
+A materialistic and feature packed search bar with a [Trie implementation][trie] for efficient autocorrect. Made by Christopher Gong and Ankush Vangari.
+
+[trie]: https://github.com/dark-mode/Trie
 
 ## Usage
 
