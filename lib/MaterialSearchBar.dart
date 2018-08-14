@@ -47,7 +47,7 @@ class MaterialSearchBar extends StatefulWidget {
               this._searchResultsBackgroundColor,
               this._searchResultsTextColor,
               this._searchResultsFontSize,
-              this._searchResultsFont
+              this._searchResultsFont,
               this._submitButton,
               this._clearButton,
             );
