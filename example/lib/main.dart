@@ -52,18 +52,8 @@ class _MyAppState extends State<MyApp> {
       checkmarkIcon: Icon(Icons.check, color: Colors.teal[400]),
       submitButton: FloatingActionButton(),
       clearButton: FloatingActionButton(),
-      items: ['chris is dumb', 'ankush is awesome'],
+      items: ['apple', 'banana'],
       onSubmit: (String value) => print('hi'),
     );
-//    return new MaterialApp(
-//      home: new Scaffold(
-//        appBar: new AppBar(
-//          title: const Text('Plugin example app'),
-//        ),
-//        body: new Center(
-//          child: new Text('Running on: $_platformVersion\n'),
-//        ),
-//      ),
-//    );
   }
 }
