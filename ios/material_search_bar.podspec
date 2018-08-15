@@ -2,11 +2,11 @@
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
 #
 Pod::Spec.new do |s|
-  s.name             = 'search_bar'
+  s.name             = 'material_search_bar'
   s.version          = '0.0.1'
-  s.summary          = 'A materialistic and feature packed search bar with a Trie implementation for efficient autocorrect.'
+  s.summary          = 'A materialistic and feature packed search bar with a Trie implementation for efficient autocorrect. Made by Christopher Gong and Ankush Vangari.'
   s.description      = <<-DESC
-A materialistic and feature packed search bar with a Trie implementation for efficient autocorrect.
+A materialistic and feature packed search bar with a Trie implementation for efficient autocorrect. Made by Christopher Gong and Ankush Vangari.
                        DESC
   s.homepage         = 'http://example.com'
   s.license          = { :file => '../LICENSE' }

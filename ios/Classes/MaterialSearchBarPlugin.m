@@ -1,11 +1,11 @@
-#import "SearchBarPlugin.h"
+#import "MaterialSearchBarPlugin.h"
 
-@implementation SearchBarPlugin
+@implementation MaterialSearchBarPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   FlutterMethodChannel* channel = [FlutterMethodChannel
-      methodChannelWithName:@"search_bar"
+      methodChannelWithName:@"material_search_bar"
             binaryMessenger:[registrar messenger]];
-  SearchBarPlugin* instance = [[SearchBarPlugin alloc] init];
+  MaterialSearchBarPlugin* instance = [[MaterialSearchBarPlugin alloc] init];
   [registrar addMethodCallDelegate:instance channel:channel];
 }
 

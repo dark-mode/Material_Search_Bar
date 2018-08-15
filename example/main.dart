@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:search_bar/material_search_bar.dart';
+import 'package:material_search_bar/material_search_bar.dart';
 
 void main() => runApp(new MyApp());
 
@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    MaterialSearchBar mSB =  MaterialSearchBar(
+    MaterialSearchBar mSB = MaterialSearchBar(
       searchBarColor: Colors.white,
       searchBarTextColor: Colors.black,
       searchBarFontSize: 20.0,
@@ -51,21 +51,19 @@ class _MyAppState extends State<MyApp> {
       searchResultsFontSize: 20.0,
       checkmarkIcon: Icon(Icons.check, color: Colors.teal[400]),
       submitButton: FloatingActionButton(
-      heroTag: null,
-      tooltip: "Search",
-    child: new Icon(Icons.arrow_forward),
-    backgroundColor: Theme.of(context).primaryColor,
-    foregroundColor: Colors.white,
-    ),
+        heroTag: null,
+        tooltip: "Search",
+        child: new Icon(Icons.arrow_forward),
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Colors.white,
+      ),
       items: ['apple', 'banana'],
     );
-    mSB.changeOnSubmit( () {
-      for (String s in mSB.selectedItems)
-        print(s);
+    mSB.changeOnSubmit(() {
+      for (String s in mSB.selectedItems) print(s);
     });
-    mSB.changeOnButtonSubmit( (String value) {
-      for (String s in mSB.selectedItems)
-        print(s);
+    mSB.changeOnButtonSubmit((String value) {
+      for (String s in mSB.selectedItems) print(s);
     });
     return mSB;
   }

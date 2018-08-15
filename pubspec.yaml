@@ -1,13 +1,16 @@
-name: search_bar
-description: A materialistic and feature packed search bar with a Trie implementation for efficient autocorrect.
-version: 0.1.0
-authors: [Christopher Gong <christophergong@berkeley.edu>, Ankush Vangari <ankush@vangari.com>]
-homepage: https://github.com/dark-mode/Trie
+name: material_search_bar
+description: A materialistic and feature packed search bar with a Trie implementation for efficient autocorrect. Made by Christopher Gong and Ankush Vangari.
+version: 1.0.0
+homepage: https://github.com/dark-mode/Material_Search_Bar
+authors:  [Christopher Gong <christophergong@berkeley.edu>, Ankush Vangari <ankush@vangari.com>]
+
+environment:
+  sdk: '>=2.0.0-dev.55.0 <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
-  trie: ^1.0.0
+  trie: ^1.0.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
@@ -15,12 +18,8 @@ dependencies:
 # The following section is specific to Flutter.
 flutter:
   plugin:
-    androidPackage: com.darkmode.searchbar
-    pluginClass: SearchBarPlugin
-
-
-environment:
-  sdk: ">=2.0.0-dev.28.0 <3.0.0"
+    androidPackage: com.example.materialsearchbar.materialsearchbar
+    pluginClass: MaterialSearchBarPlugin
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:

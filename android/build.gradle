@@ -1,4 +1,4 @@
-group 'com.darkmode.searchbar'
+group 'com.example.materialsearchbar.materialsearchbar'
 version '1.0-SNAPSHOT'
 
 buildscript {

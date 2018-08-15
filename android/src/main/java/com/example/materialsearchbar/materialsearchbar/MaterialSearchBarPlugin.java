@@ -1,4 +1,4 @@
-package com.darkmode.searchbar;
+package com.example.materialsearchbar.materialsearchbar;
 
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -6,12 +6,12 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 
-/** SearchBarPlugin */
-public class SearchBarPlugin implements MethodCallHandler {
+/** MaterialSearchBarPlugin */
+public class MaterialSearchBarPlugin implements MethodCallHandler {
   /** Plugin registration. */
   public static void registerWith(Registrar registrar) {
-    final MethodChannel channel = new MethodChannel(registrar.messenger(), "search_bar");
-    channel.setMethodCallHandler(new SearchBarPlugin());
+    final MethodChannel channel = new MethodChannel(registrar.messenger(), "material_search_bar");
+    channel.setMethodCallHandler(new MaterialSearchBarPlugin());
   }
 
   @Override
