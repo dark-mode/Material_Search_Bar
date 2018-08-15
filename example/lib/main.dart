@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:search_bar/MaterialSearchBar.dart';
+import 'package:search_bar/material_search_bar.dart';
 
 void main() => runApp(new MyApp());
 
@@ -58,9 +58,12 @@ class _MyAppState extends State<MyApp> {
     foregroundColor: Colors.white,
     ),
       items: ['apple', 'banana'],
-      onSubmit: () => print('hi'),
     );
     mSB.changeOnSubmit( () {
+      for (String s in mSB.selectedItems)
+        print(s);
+    });
+    mSB.changeOnButtonSubmit( (String value) {
       for (String s in mSB.selectedItems)
         print(s);
     });

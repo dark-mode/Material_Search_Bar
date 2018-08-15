@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'MaterialSearchBarResults.dart';
+import 'material_search_bar_results.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:trie/trie.dart';
 typedef void OnSubmit();
+typedef void OnButtonSubmit(String value);
 
 class MaterialSearchBar extends StatefulWidget {
 
@@ -13,6 +14,7 @@ class MaterialSearchBar extends StatefulWidget {
   Icon checkmarkIcon;
   FloatingActionButton submitButton, clearButton;
   OnSubmit onSubmit;
+  OnButtonSubmit onButtonSubmit;
   List<String> items;
 
 
@@ -41,29 +43,34 @@ class MaterialSearchBar extends StatefulWidget {
     this.clearButton,
     this.checkmarkIcon,
     this.items,
-    this.onSubmit
+    this.onSubmit,
+    this.onButtonSubmit
   })
   {
     hP = _MaterialSearchBarState(
-              this.searchBarColor,
-              this.searchBarTextColor,
-              this.searchBarFontSize,
-              this.searchBarFont,
-              this.searchResultsBackgroundColor,
-              this.searchResultsTextColor,
-              this.searchResultsFontSize,
-              this.searchResultsFont,
-              this.submitButton,
-              this.clearButton,
-              this.checkmarkIcon,
-              this.items,
-              this.onSubmit
-            );
+        this.searchBarColor,
+        this.searchBarTextColor,
+        this.searchBarFontSize,
+        this.searchBarFont,
+        this.searchResultsBackgroundColor,
+        this.searchResultsTextColor,
+        this.searchResultsFontSize,
+        this.searchResultsFont,
+        this.submitButton,
+        this.clearButton,
+        this.checkmarkIcon,
+        this.items,
+        this.onSubmit,
+        this.onButtonSubmit
+    );
 
   }
   @override
   void changeOnSubmit(OnSubmit onSubmit) {
     hP.changeOnSubmit(onSubmit);
+  }
+  void changeOnButtonSubmit(OnButtonSubmit onButtonSubmit) {
+    hP.changeOnButtonSubmit(onButtonSubmit);
   }
   get selectedItems => hP.selectedItems;
 
@@ -77,6 +84,7 @@ class _MaterialSearchBarState extends State<MaterialSearchBar> {
   String searchBarFont, searchResultsFont;
   Icon checkmarkIcon;
   OnSubmit onSubmit;
+  OnButtonSubmit onButtonSubmit;
   FloatingActionButton submitButton, clearButton;
 
   FocusNode _myFocusNode;
@@ -94,7 +102,10 @@ class _MaterialSearchBarState extends State<MaterialSearchBar> {
   Set<String> _selectedItems;
   get selectedItems => _selectedItems;
   void changeOnSubmit(OnSubmit onSubmit) {
-      this.onSubmit = onSubmit;
+    this.onSubmit = onSubmit;
+  }
+  void changeOnButtonSubmit(OnButtonSubmit onButtonSubmit) {
+    this.onButtonSubmit = onButtonSubmit;
   }
   List<String> items;
   Trie _trie;
@@ -113,7 +124,8 @@ class _MaterialSearchBarState extends State<MaterialSearchBar> {
       this.clearButton,
       this.checkmarkIcon,
       this.items,
-      this.onSubmit
+      this.onSubmit,
+      this.onButtonSubmit
       ) {
     _controller = new TextEditingController();
     _myFocusNode = FocusNode();
@@ -148,42 +160,42 @@ class _MaterialSearchBarState extends State<MaterialSearchBar> {
       title: "Hungry",
       home: Scaffold(
         //backgroundColor: Theme.of(context).backgroundColor,
-        appBar: AppBar(
+          appBar: AppBar(
             backgroundColor: searchBarColor,
             title: Row(
               children: <Widget>[
-              IconButton(
-                padding: EdgeInsets.only(right: 50.0),
+                IconButton(
+                  padding: EdgeInsets.only(right: 50.0),
                   icon: Icon(Icons.arrow_back),
                   onPressed: () => Navigator.pop(context),
-              ),
-              Flexible(
-                child: TextField(
-                  controller: _controller,
-                  autofocus: true,
-                  focusNode: _myFocusNode,
-                  style: TextStyle(
+                ),
+                Flexible(
+                  child: TextField(
+                    controller: _controller,
+                    autofocus: true,
+                    focusNode: _myFocusNode,
+                    style: TextStyle(
                       color: searchBarTextColor,
                       fontSize: searchBarFontSize,
                       //fontFamily: 'Eczar'
-                  ),
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Search on Hungry',
-                    hintStyle: TextStyle(
+                    ),
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Search on Hungry',
+                      hintStyle: TextStyle(
                         color: searchBarTextColor,
                         fontSize: searchBarFontSize,
                         //fontFamily: 'Eczar'
+                      ),
                     ),
+                    onSubmitted: onButtonSubmit,
+                    onChanged: (text) {
+                      setState(() {
+                        items = _trie.getAllWordsWithPrefix(text);
+                      });
+                    },
                   ),
-                  onSubmitted: (String value) => onSubmit,
-                  onChanged: (text) {
-                    setState(() {
-                      items = _trie.getAllWordsWithPrefix(text);
-                    });
-                  },
-                ),
-              )
+                )
               ],
             ),
             actions: _controller.text.length == 0 ? [
@@ -198,53 +210,53 @@ class _MaterialSearchBarState extends State<MaterialSearchBar> {
                   }
               )
             ] : [
-            new IconButton(
-            icon: new Icon(Icons.clear),
-          onPressed: () {
-            setState(() {
-              _controller.clear();
-              items = _trie.getAllWords();
-            });
-          }
-      ),
-      ],
-        ),
-        floatingActionButton: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget> [
-                Container(
-                    padding: EdgeInsets.only(bottom: searchBarFontSize * 0.6),
-                    child: FloatingActionButton(
-        tooltip: "Clear All",
-          backgroundColor: Colors.red,
-          mini: true,
-          heroTag: null,
-          child: Icon(Icons.clear,color: Colors.white,),
-          onPressed: (){
-            setState(() {
-              _controller.clear();
-              items = _trie.getAllWords();
-              _selectedItems = Set<String>();
-            });
-          },
-        )),
-        FloatingActionButton(
-            heroTag: null,
-            tooltip: "Search",
-            child: new Icon(Icons.arrow_forward),
-            backgroundColor: Theme.of(context).primaryColor,
-            foregroundColor: Colors.white,
-            onPressed: onSubmit,
-        )]
-            ),
-          ],
-        ),
-        body: Container(child: MaterialSearchBarResults(items, _selectedItems, this, searchResultsBackgroundColor, searchResultsTextColor, searchResultsFontSize, checkmarkIcon
-        ))
+              new IconButton(
+                  icon: new Icon(Icons.clear),
+                  onPressed: () {
+                    setState(() {
+                      _controller.clear();
+                      items = _trie.getAllWords();
+                    });
+                  }
+              ),
+            ],
+          ),
+          floatingActionButton: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget> [
+                    Container(
+                        padding: EdgeInsets.only(bottom: searchBarFontSize * 0.6),
+                        child: FloatingActionButton(
+                          tooltip: "Clear All",
+                          backgroundColor: Colors.red,
+                          mini: true,
+                          heroTag: null,
+                          child: Icon(Icons.clear,color: Colors.white,),
+                          onPressed: (){
+                            setState(() {
+                              _controller.clear();
+                              items = _trie.getAllWords();
+                              _selectedItems = Set<String>();
+                            });
+                          },
+                        )),
+                    FloatingActionButton(
+                      heroTag: null,
+                      tooltip: "Search",
+                      child: new Icon(Icons.arrow_forward),
+                      backgroundColor: Theme.of(context).primaryColor,
+                      foregroundColor: Colors.white,
+                      onPressed: onSubmit,
+                    )]
+              ),
+            ],
+          ),
+          body: Container(child: MaterialSearchBarResults(items, _selectedItems, this, searchResultsBackgroundColor, searchResultsTextColor, searchResultsFontSize, checkmarkIcon
+          ))
       ),
     );
   }

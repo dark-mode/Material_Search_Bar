@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'MaterialSearchBarResultsItem.dart';
+import 'material_search_bar_results_item.dart';
 //adapted from https://hackernoon.com/flutter-iii-lists-and-items-6bfa7348ab1b
 
 class MaterialSearchBarResults extends StatelessWidget {
@@ -11,7 +11,14 @@ class MaterialSearchBarResults extends StatelessWidget {
   double _searchResultsFontSize;
   Icon _checkmarkIcon;
 
-  MaterialSearchBarResults(this._items, this._selectedItems, this._state, this._searchResultsBackgroundColor, this._searchResultsTextColor, this._searchResultsFontSize, this._checkmarkIcon);
+  MaterialSearchBarResults(
+      this._items,
+      this._selectedItems,
+      this._state,
+      this._searchResultsBackgroundColor,
+      this._searchResultsTextColor,
+      this._searchResultsFontSize,
+      this._checkmarkIcon);
 
   /// Displays list of restaurant cards
   @override
@@ -31,9 +38,18 @@ class MaterialSearchBarResults extends StatelessWidget {
       _checkmark = null;
       if (this._selectedItems.contains(_item)) {
         print(_item + " was selected");
-          _checkmark = _checkmarkIcon;
+        _checkmark = _checkmarkIcon;
       }
-      items.add(MaterialSearchResultsItem(_item, scaleFactor, context, _selectedItems, _checkmark, _state, _searchResultsBackgroundColor, _searchResultsTextColor, _searchResultsFontSize));
+      items.add(MaterialSearchResultsItem(
+          _item,
+          scaleFactor,
+          context,
+          _selectedItems,
+          _checkmark,
+          _state,
+          _searchResultsBackgroundColor,
+          _searchResultsTextColor,
+          _searchResultsFontSize));
     }
     return items;
   }
