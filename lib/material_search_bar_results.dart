@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'MaterialSearchBarResultsItem.dart';
+import 'material_search_bar_results_item.dart';
 //adapted from https://hackernoon.com/flutter-iii-lists-and-items-6bfa7348ab1b
 
 class MaterialSearchBarResults extends StatelessWidget {

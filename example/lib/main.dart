@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:search_bar/MaterialSearchBar.dart';
+import 'package:search_bar/material_search_bar.dart';
 
 void main() => runApp(new MyApp());
 

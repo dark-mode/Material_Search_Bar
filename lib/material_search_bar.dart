@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'MaterialSearchBarResults.dart';
+import 'material_search_bar_results.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:trie/trie.dart';
