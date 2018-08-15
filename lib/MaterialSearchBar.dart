@@ -3,7 +3,7 @@ import 'MaterialSearchBarResults.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:trie/trie.dart';
-typedef void OnSubmit(String value);
+typedef void OnSubmit();
 
 class MaterialSearchBar extends StatefulWidget {
 
@@ -14,6 +14,7 @@ class MaterialSearchBar extends StatefulWidget {
   FloatingActionButton submitButton, clearButton;
   OnSubmit onSubmit;
   List<String> items;
+
 
   static const MethodChannel _channel =
   const MethodChannel('search_bar');
@@ -58,7 +59,13 @@ class MaterialSearchBar extends StatefulWidget {
               this.items,
               this.onSubmit
             );
+
   }
+  @override
+  void changeOnSubmit(OnSubmit onSubmit) {
+    hP.changeOnSubmit(onSubmit);
+  }
+  get selectedItems => hP.selectedItems;
 
 }
 
@@ -85,6 +92,10 @@ class _MaterialSearchBarState extends State<MaterialSearchBar> {
   double _lat, _lon;
 
   Set<String> _selectedItems;
+  get selectedItems => _selectedItems;
+  void changeOnSubmit(OnSubmit onSubmit) {
+      this.onSubmit = onSubmit;
+  }
   List<String> items;
   Trie _trie;
   Icon _rightIcon;
@@ -165,7 +176,7 @@ class _MaterialSearchBarState extends State<MaterialSearchBar> {
                         //fontFamily: 'Eczar'
                     ),
                   ),
-                  onSubmitted: onSubmit,
+                  onSubmitted: (String value) => onSubmit,
                   onChanged: (text) {
                     setState(() {
                       items = _trie.getAllWordsWithPrefix(text);
@@ -202,11 +213,34 @@ class _MaterialSearchBarState extends State<MaterialSearchBar> {
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            Container(
-              padding: EdgeInsets.only(bottom: 20.0, right: 22.0),
-              child: clearButton
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget> [
+                Container(
+                    padding: EdgeInsets.only(bottom: searchBarFontSize * 0.6),
+                    child: FloatingActionButton(
+        tooltip: "Clear All",
+          backgroundColor: Colors.red,
+          mini: true,
+          heroTag: null,
+          child: Icon(Icons.clear,color: Colors.white,),
+          onPressed: (){
+            setState(() {
+              _controller.clear();
+              items = _trie.getAllWords();
+              _selectedItems = Set<String>();
+            });
+          },
+        )),
+        FloatingActionButton(
+            heroTag: null,
+            tooltip: "Search",
+            child: new Icon(Icons.arrow_forward),
+            backgroundColor: Theme.of(context).primaryColor,
+            foregroundColor: Colors.white,
+            onPressed: onSubmit,
+        )]
             ),
-            submitButton
           ],
         ),
         body: Container(child: MaterialSearchBarResults(items, _selectedItems, this, searchResultsBackgroundColor, searchResultsTextColor, searchResultsFontSize, checkmarkIcon

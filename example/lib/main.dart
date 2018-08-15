@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialSearchBar(
+    MaterialSearchBar mSB =  MaterialSearchBar(
       searchBarColor: Colors.white,
       searchBarTextColor: Colors.black,
       searchBarFontSize: 20.0,
@@ -50,10 +50,20 @@ class _MyAppState extends State<MyApp> {
       searchResultsTextColor: Colors.black,
       searchResultsFontSize: 20.0,
       checkmarkIcon: Icon(Icons.check, color: Colors.teal[400]),
-      submitButton: FloatingActionButton(),
-      clearButton: FloatingActionButton(),
+      submitButton: FloatingActionButton(
+      heroTag: null,
+      tooltip: "Search",
+    child: new Icon(Icons.arrow_forward),
+    backgroundColor: Theme.of(context).primaryColor,
+    foregroundColor: Colors.white,
+    ),
       items: ['apple', 'banana'],
-      onSubmit: (String value) => print('hi'),
+      onSubmit: () => print('hi'),
     );
+    mSB.changeOnSubmit( () {
+      for (String s in mSB.selectedItems)
+        print(s);
+    });
+    return mSB;
   }
 }
